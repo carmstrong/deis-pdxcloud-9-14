@@ -15,7 +15,7 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
 		<link rel="stylesheet" href="revealjs/css/reveal.min.css">
-		<link rel="stylesheet" href="revealjs/css/theme/default.css" id="theme">
+		<link rel="stylesheet" href="revealjs/css/theme/simple.css" id="theme">
 
 		<!-- For syntax highlighting -->
 		<link rel="stylesheet" href="revealjs/lib/css/zenburn.css">
@@ -32,7 +32,7 @@
 
 	<body style="font-family: helvetica">
 
-		<div class="reveal">
+		<div class="reveal" style="font-family: Helvetica Neue Light,HelveticaNeue-Light,Helvetica Neue,Helvetica,Arial,Lucida Grande,sans-serif;">
 
 			<div class="slides">
 				<section>
@@ -51,13 +51,14 @@
 						<li>15+ years in IT ops and systems programming</li>
 						<li>Worked at Intuit, Temboo and as a freelance consultant</li>
 						<li>Early and frequent Docker contributor</li>
+						<li>Creator of the Deis project</li>
 					</ul>
 				</section>
 
 				<section>
 					<h1>About Deis</h1>
 					<ul>
-						<li>First Docker PAAS</li>
+						<li>First Multi-Host Docker PAAS</li>
 						<li>Heroku-inspired workflow</li>
 						<li>100% open source</li>
 						<li>Python &amp; Go</li>
@@ -82,7 +83,7 @@
 				</section>
 
 				<section>
-					<h1>Developer Workflow</h1>
+					<h2>Developer Workflow</h2>
 					<ul>
 						<li>Create applications</li>
 						<li>Push code or Docker images</li>
@@ -96,7 +97,7 @@
 				</section>
 
 				<section>
-					<h1>Division of Responsibility</h1>
+					<h2>Division of Responsibility</h2>
 					<ul>
 						<li>Developers own the containers</li>
 						<li>Operations own the platform</li>
@@ -126,7 +127,7 @@
 					<ul>
 						<li>Comprehensive Specification</li>
 						<li>Not-Invented-Here Syndrome</li>
-						<li>Specific Language(s)</li>
+						<li>Specific Languages</li>
 					</ul>
 				</section>
 
@@ -146,11 +147,16 @@
 				</section>
 
 				<section>
-					<h1>(Chasing Docker)</h1>
+					<h2>(Chasing Docker)</h2>
+                    <img src="img/DockerLogo.png" class="stretched"/>
 				</section>
 
 				<section>
-					<h1>The Deis Workflow</h1>
+					<h1>Rush to prototype</h1>
+				</section>
+
+				<section>
+					<h2>Minimum Viable Workflow</h2>
 				    <pre><code>
 $ deis register http://deis.local
 
@@ -167,7 +173,7 @@ $ deis scale web=8
 				</section>
 
 				<section>
-					<h1>Rush to prototype</h1>
+					<h2>What do we need?</h2>
 					<ul>
 						<li>Command-line Client</li>
 						<li>API Server</li>
@@ -177,20 +183,22 @@ $ deis scale web=8
 				</section>
 
 				<section>
-					<h1>Docker Workarounds</h1>
+					<h2>Workarounds</h2>
 					<ul>
 						<li>Bind mounts</li>
-						<li>Service per container</li>
 						<li>Signals</li>
+						<li>Service per container</li>
+						<li>Databag scheduler</li>
 					</ul>
 				</section>
 
 				<section>
-					<h1>(Prototype Graphic)</h1>
+					<h2>(Prototype Graphic)</h2>
 				</section>
 
 				<section>
 					<h2>(Docker Stability Drive)</h2>
+                    <img src="img/DockerLogo.png" class="stretched"/>
 				</section>
 
 				<section>
@@ -198,40 +206,99 @@ $ deis scale web=8
 				</section>
 
 				<section>
-					<h1>Features</h1>
+					<h2>Add to Developer Workflow</h2>
 					<ul>
-						<li>deis config</li>
 						<li>deis logs</li>
 						<li>deis run</li>
-						<li>deis open</li>
 						<li>deis releases</li>
-						<li>deis keys</li>
-						<li>deis perms</li>
+						<li>deis sharing</li>
 					</ul>
 				</section>
 
 				<section>
-					<h1>(Docker Gets Stable)</h1>
+					<h2>(Docker Gets Popular)</h2>
+                    <img src="img/DockerLogo.png" class="stretched"/>
 				</section>
 
 				<section>
-					<h1>Containerize thyself</h1>
+					<h1>Learn from the Community</h1>
 				</section>
 
 				<section>
-					<h1>(Docker Gets Popular)</h1>
+					<h2>(Docker Gets Stable)</h2>
+                    <img src="img/DockerLogo.png" class="stretched"/>
 				</section>
 
 				<section>
-					<h1>Dockerfile deployment</h1>
+					<h1>Dockerize All The Things</h1>
 				</section>
 
 				<section>
-					<h2>(Deis Scalability Issues)</h2>
+					<h2>Deis Components</h2>
+					<ul>
+						<li>deis/controller</li>
+						<li>deis/database</li>
+						<li>deis/cache</li>
+						<li>deis/logger</li>
+						<li>deis/builder</li>
+						<li>deis/registry</li>
+						<li>deis/router</li>
+					</ul>
 				</section>
 
 				<section>
-					<h1>Scheduler Integration</h1>
+					<h2>Deis Artifacts</h2>
+					<ul>
+						<li>Switch from bind mounts to pure Docker Images</li>
+						<li>Dockerfile shim for injecting Heroku Buildpack output</li>
+						<li>Add last-mile layer for configuration data</li>
+						<li>Distribute containers from private registry</li>
+					</ul>
+				</section>
+
+				<section>
+					<h1>Surprise!</h1>
+					<ul>
+						<li>Components aren't actually decoupled</li>
+						<li>Docker volumes are hard to work with</li>
+						<li>Docker index errors are non-deterministic</li>
+						<li>Difficult to debug live containers</li>
+					<ul>
+				</section>
+
+				<section>
+					<h2>(Container Architecture Diagram)</h2>
+				</section>
+
+				<section>
+					<h2>(Deis Gets Popular)</h2>
+                    <img src="img/DeisLogo.png" class="stretched" style="border:none;background:white;"/>		
+				</section>
+
+				<section>
+					<h1>Scalability Issues</h1>
+				</section>
+
+				<section>
+					<h2>Deis Scalability Issues</h2>
+					<ul>
+						<li>Max of 20 servers or 5 deploys/minute</li> 
+						<li>Node convergence is slow</li>
+						<li>Pushing the limits of CM</li>
+					</ul>
+				</section>
+
+				<section>
+					<h1>Real Scheduler</h1>
+				</section>
+
+				<section>
+					<h2>Scheduler Prototyping</h2>
+					<ul>
+						<li>Mesos/Marathon</li>
+						<li>Flynn Layer 0</li>
+						<li>CoreOS/Fleet</li>
+					</ul>
 				</section>
 
 				<section>
@@ -247,11 +314,29 @@ $ deis scale web=8
 				</section>
 
 				<section>
-					<h1>Demo: Docker Image Promotion</h1>
+					<h2>(Docker 1.0)</h2>
+                    <img src="img/DockerLogo.png" class="stretched"/>
 				</section>
 
 				<section>
-					<h1>Future: Libswarm &amp; the Docker API</h1>
+					<h1>Deploy Docker Images</h1>
+				</section>
+
+				<section>
+					<h2>(Demo: Promoting Docker Images through Deis)
+				</section>
+
+				<section>
+					<h1>Future: Libswarm</h1>
+				</section>
+
+				<section>
+					<h2>Why Libswarm?</h2>
+					<ul>
+						<li>Docker API</li>
+						<li>Support multiple schedulers</li>
+						<li>Benefit from Docker ecosystem</li>
+					</ul>
 				</section>
 
 				<section>
@@ -260,10 +345,6 @@ $ deis scale web=8
 
 				<section>
 					<h1>Questions?</h1>
-				</section>
-
-				<section>
-					<script type="text/javascript" src="https://asciinema.org/a/8905.js" id="asciicast-8905" data-size="medium" data-speed="2" async></script>			
 				</section>
 
 				<section>
