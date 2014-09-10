@@ -4,7 +4,7 @@
 	<head>
 		<meta charset="utf-8">
 
-		<title>Deis: Evolution of a Docker PAAS</title>
+		<title>Docker, CoreOS, and Deis</title>
 
 		<meta name="description" content="Deis: Evolution of a Docker PAAS">
 		<meta name="author" content="Gabriel Monroy">
@@ -14,19 +14,19 @@
 
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
-		<link rel="stylesheet" href="revealjs/css/reveal.min.css">
-		<link rel="stylesheet" href="revealjs/css/theme/simple.css" id="theme">
+		<link rel="stylesheet" href="reveal.js/css/reveal.min.css">
+		<link rel="stylesheet" href="reveal.js/css/theme/simple.css" id="theme">
 
 		<!-- For syntax highlighting -->
-		<link rel="stylesheet" href="revealjs/lib/css/zenburn.css">
+		<link rel="stylesheet" href="reveal.js/lib/css/zenburn.css">
 
 		<!-- If the query includes 'print-pdf', use the PDF print sheet -->
 		<script>
-		document.write( '<link rel="stylesheet" href="revealjs/css/print/' + ( window.location.search.match( /print-pdf/gi ) ? 'pdf' : 'paper' ) + '.css" type="text/css" media="print">' );
+		document.write( '<link rel="stylesheet" href="reveal.js/css/print/' + ( window.location.search.match( /print-pdf/gi ) ? 'pdf' : 'paper' ) + '.css" type="text/css" media="print">' );
 		</script>
 
 		<!--[if lt IE 9]>
-		<script src="revealjs/lib/js/html5shiv.js"></script>
+		<script src="reveal.js/lib/js/html5shiv.js"></script>
 		<![endif]-->
 	</head>
 
@@ -37,26 +37,25 @@
 			<div class="slides">
 				<section>
 					<div>
-						<h2>Evolution of a Docker PAAS</h2>
+						<h2>Docker, CoreOS, and Deis</h2>
                     	<img src="img/DeisLogo.png" class="stretched" style="border:none;background:white;"/>
 						<p>
-							<small>Gabriel Monroy</a> / <a href="http://twitter.com/gabrtv">@gabrtv</a></small>
+							<small>Chris Armstrong</a> / <a href="http://twitter.com/carmstrong_afk">@carmstrong_afk</a></small>
 						</p>
 					</div>
 				</section>
 
 				<section>
-					<h1>About Me</h1>
+          <img src="img/me.jpg" class="stretched" style="border:none;background:none;"/>
 					<ul>
-						<li>15+ years in IT ops and systems programming</li>
-						<li>Worked at Intuit, Temboo and as a freelance consultant</li>
-						<li>Early and frequent Docker contributor</li>
-						<li>Creator of the Deis project</li>
+						<li>Resident gingeneer at OpDemand (we build Deis!)</li>
+						<li>Former SaaS builder</li>
+						<li>Former ops engineer</li>
 					</ul>
 				</section>
 
 				<section>
-					<h1>About Deis</h1>
+					<img src="img/DeisLogo.png" class="stretched" style="border:none;background:white;"/>
 					<ul>
 						<li>First Multi-Host Docker PAAS</li>
 						<li>Heroku-inspired workflow</li>
@@ -66,34 +65,70 @@
 				</section>
 
 				<section>
-					<h1>Why Docker?</h1>
-					<ul class="fragment">
-						<li>Speed</li>
-						<li>Portability</li>
-						<li>Density</li>
-					</ul>
-				</section>
-
-				<section>
-					<h1>Why Deis?</h1>
-				</section>
-
-				<section>
-					<h1>Docker is not enough!</h1>
-				</section>
-
-				<section>
-					<h2>Developer Workflow</h2>
+					<h1>Deis Today</h1>
 					<ul>
-						<li>Create applications</li>
-						<li>Push code or Docker images</li>
-						<li>Set environment variables</li>
-						<li>Manage releases and rollbacks</li>
-						<li>Run ephemeral containers</li>
-						<li>View aggregated logs</li>
-						<li>Scale containers</li>
-						<li>Collaborate with a team</li>
+						<li>~2.5k stars, 150 watchers, 300 forks</li>
+						<li>4 full-time devs, ~60 contributors</li>
+						<li>> 100 Deis deployments*</li>
 					</ul>
+					<br/><br/>
+					<p class="fragment">* that we know of</p>
+				</section>
+
+				<section>
+          <img src="img/DockerLogo.png" class="stretched"/>
+				</section>
+
+				<section>
+					<img src="img/CoreOS.png" class="stretched" style="border:none;background:white;"/>
+				</section>
+
+				<section>
+				<h1>etcd</h1>
+					<pre><code data-trim contenteditable>
+core@ip-10-21-2-167 ~ $ etcdctl ls /deis/controller
+/deis/controller/protocol
+/deis/controller/secretKey
+/deis/controller/builderKey
+/deis/controller/registrationEnabled
+/deis/controller/webEnabled
+/deis/controller/host
+/deis/controller/port
+					</code></pre>
+				</section>
+
+				<section>
+				<h1>fleet</h1>
+					<pre><code data-trim contenteditable>
+[Unit]
+Description=deis-router
+
+[Service]
+ExecStart=/bin/echo "Hello, friend!"
+
+[X-Fleet]
+Conflicts=deis-router@*.service
+MachineMetadata=us-east
+					</code></pre>
+				</section>
+
+				<section>
+					<img src="img/DeisLogo.png" class="stretched" style="border:none;background:white;"/>
+				</section>
+
+				<section>
+					<h1>What is a PaaS?</h1>
+				</section>
+
+				<section>
+					<img src="img/devopsevil.jpg" class="stretched" style="border:none;background:none;"/>
+				</section>
+
+				<section>
+					<h1>CLI</h1>
+					<h1>+ apps</h1>
+					<h1>+ infrastructure</h1>
+					<h1>= happy devs</h1>
 				</section>
 
 				<section>
@@ -105,132 +140,19 @@
 				</section>
 
 				<section>
-					<h1>Philosophy</h1>
-					<ul>
-						<li>Keep a stable developer workflow</li>
-						<li>Rapidly improve the underlying implementation</li>
-						<li>Evolve with the Docker ecosystem</li>
-					</ul>
+					<h1>Demo time!</h1>
 				</section>
 
 				<section>
-					<h1>Important</h1>
-					<ul>
-						<li>Documentation</li>
-						<li>Test Coverage</li>
-						<li>Developer Experience</li>
-					</ul>
+					<script type="text/javascript" src="https://asciinema.org/a/8905.js" id="asciicast-8905" async data-speed="2" data-autoplay="true"></script>
 				</section>
 
 				<section>
-					<h1>Less Important</h1>
-					<ul>
-						<li>Comprehensive Specification</li>
-						<li>Not-Invented-Here Syndrome</li>
-						<li>Specific Languages</li>
-					</ul>
+					<h1>Buildpacks or Docker images</h1>
 				</section>
 
 				<section>
-					<h1>Deis Today</h1>
-					<ul>
-						<li>~2k stars, 100 watchers, 176 forks</li>
-						<li>4 full-time devs, ~40 contributors</li>
-						<li>> 100 Deis deployments*</li>
-					</ul>
-					<br/><br/>
-					<p class="fragment">* that we know of</p>
-				</section>
-
-				<section>
-					<h1>How did we get here?</h1>
-				</section>
-
-				<section>
-					<h2>(Chasing Docker)</h2>
-                    <img src="img/DockerLogo.png" class="stretched"/>
-				</section>
-
-				<section>
-					<h1>Rush to prototype</h1>
-				</section>
-
-				<section>
-					<h2>Minimum Viable Workflow</h2>
-				    <pre><code>
-$ deis register http://deis.local
-
-$ deis keys:add ~/.ssh/id_rsa.pub
-
-$ deis create myapp
-
-$ git push deis master
-
-$ deis config:set DATABASE_URL=postgres://
-
-$ deis scale web=8
-				    </code></pre>
-				</section>
-
-				<section>
-					<h2>What do we need?</h2>
-					<ul>
-						<li>Command-line Client</li>
-						<li>API Server</li>
-						<li>Git Server</li>
-						<li>Chef Cookbooks</li>
-					</ul>
-				</section>
-
-				<section>
-					<h2>Workarounds</h2>
-					<ul>
-						<li>Bind mounts</li>
-						<li>Signals</li>
-						<li>Service per container</li>
-						<li>Databag scheduler</li>
-					</ul>
-				</section>
-
-				<section>
-					<h2>(Prototype Graphic)</h2>
-				</section>
-
-				<section>
-					<h2>(Docker Stability Drive)</h2>
-                    <img src="img/DockerLogo.png" class="stretched"/>
-				</section>
-
-				<section>
-					<h1>More Features!</h1>
-				</section>
-
-				<section>
-					<h2>Add to Developer Workflow</h2>
-					<ul>
-						<li>deis logs</li>
-						<li>deis run</li>
-						<li>deis releases</li>
-						<li>deis sharing</li>
-					</ul>
-				</section>
-
-				<section>
-					<h2>(Docker Gets Popular)</h2>
-                    <img src="img/DockerLogo.png" class="stretched"/>
-				</section>
-
-				<section>
-					<h1>Learn from the Community</h1>
-				</section>
-
-				<section>
-					<h2>(Docker Gets Stable)</h2>
-                    <img src="img/DockerLogo.png" class="stretched"/>
-				</section>
-
-				<section>
-					<h1>Dockerize All The Things</h1>
+					<script type="text/javascript" src="https://asciinema.org/a/11001.js" id="asciicast-11001" data-speed="2" async data-autoplay="true"></script>
 				</section>
 
 				<section>
@@ -247,65 +169,6 @@ $ deis scale web=8
 				</section>
 
 				<section>
-					<h2>Deis Artifacts</h2>
-					<ul>
-						<li>Switch from bind mounts to pure Docker Images</li>
-						<li>Dockerfile shim for injecting Heroku Buildpack output</li>
-						<li>Add last-mile layer for configuration data</li>
-						<li>Distribute containers from private registry</li>
-					</ul>
-				</section>
-
-				<section>
-					<h1>Surprise!</h1>
-					<ul>
-						<li>Components aren't actually decoupled</li>
-						<li>Docker volumes are hard to work with</li>
-						<li>Docker index errors are non-deterministic</li>
-						<li>Difficult to debug live containers</li>
-					<ul>
-				</section>
-
-				<section>
-					<h2>(Container Architecture Diagram)</h2>
-				</section>
-
-				<section>
-					<h2>(Deis Gets Popular)</h2>
-                    <img src="img/DeisLogo.png" class="stretched" style="border:none;background:white;"/>		
-				</section>
-
-				<section>
-					<h1>Scalability Issues</h1>
-				</section>
-
-				<section>
-					<h2>Deis Scalability Issues</h2>
-					<ul>
-						<li>Max of 20 servers or 5 deploys/minute</li> 
-						<li>Node convergence is slow</li>
-						<li>Pushing the limits of CM</li>
-					</ul>
-				</section>
-
-				<section>
-					<h1>Real Scheduler</h1>
-				</section>
-
-				<section>
-					<h2>Scheduler Prototyping</h2>
-					<ul>
-						<li>Mesos/Marathon</li>
-						<li>Flynn Layer 0</li>
-						<li>CoreOS/Fleet</li>
-					</ul>
-				</section>
-
-				<section>
-                    <img src="img/CoreOS.png" class="stretched" style="border:none;background:white;"/>
-				</section>
-
-				<section>
                     <img src="img/DeisArchitecturalDiagram.png" class="stretched" style="border:none;background:none;"/>
 				</section>
 
@@ -314,33 +177,19 @@ $ deis scale web=8
 				</section>
 
 				<section>
-					<h2>(Docker 1.0)</h2>
-                    <img src="img/DockerLogo.png" class="stretched"/>
-				</section>
-
-				<section>
-					<h1>Deploy Docker Images</h1>
-				</section>
-
-				<section>
-					<h2>(Demo: Promoting Docker Images through Deis)
-				</section>
-
-				<section>
-					<h1>Future: Libswarm</h1>
-				</section>
-
-				<section>
-					<h2>Why Libswarm?</h2>
+					<h1>Deployments</h1>
 					<ul>
-						<li>Docker API</li>
-						<li>Support multiple schedulers</li>
-						<li>Benefit from Docker ecosystem</li>
+						<li>Anywhere CoreOS runs!</li>
+						<li>EC2, Rackspace, Google Compute, Digital Ocean</li>
 					</ul>
 				</section>
 
 				<section>
 					<h1>Contributing</h1>
+					<ul>
+						<li>https://github.com/deis/deis</li>
+						<li>IRC @ freenode #deis</li>
+					</ul>
 				</section>
 
 				<section>
@@ -348,13 +197,7 @@ $ deis scale web=8
 				</section>
 
 				<section>
-					<h2>Resources</h2>
-					<ul>
-						<li><a href="https://github.com/deis/deis">GitHub Project</a></li>
-						<li><a href="http://deis.io/overview/">Deis Overview</a></li>
-						<li><a href="https://docs.deis.io/">Deis Documentation</a></li>
-						<li><a href="http://opdemand.com/">Commercial Support</a></li>
-					</ul>
+					<img src="img/thanks.jpg" class="stretched" style="border:none;background:none;"/>
 				</section>
 
 				<section data-background="img/DeisBackground.jpg"></section>
@@ -363,8 +206,8 @@ $ deis scale web=8
 
 		</div>
 
-		<script src="revealjs/lib/js/head.min.js"></script>
-		<script src="revealjs/js/reveal.min.js"></script>
+		<script src="reveal.js/lib/js/head.min.js"></script>
+		<script src="reveal.js/js/reveal.min.js"></script>
 
 		<script>
 
@@ -385,12 +228,12 @@ $ deis scale web=8
 
 				// Optional libraries used to extend on reveal.js
 				dependencies: [
-					{ src: 'revealjs/lib/js/classList.js', condition: function() { return !document.body.classList; } },
-					{ src: 'revealjs/plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
-					{ src: 'revealjs/plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
-					{ src: 'revealjs/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
-					{ src: 'revealjs/plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
-					{ src: 'revealjs/plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }
+					{ src: 'reveal.js/lib/js/classList.js', condition: function() { return !document.body.classList; } },
+					{ src: 'reveal.js/plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'reveal.js/plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'reveal.js/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+					{ src: 'reveal.js/plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+					{ src: 'reveal.js/plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }
 				]
 			});
 
